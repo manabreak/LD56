@@ -16,6 +16,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	if len(swarm.flies) == 0:
+		swarm.linear_velocity *= DECELERATION
+		return
+	
 	if Input.is_action_pressed("move_left"):
 		input_vel.x -= 1.0 * delta
 	elif input_vel.x < 0.0:

@@ -1,86 +1,26 @@
-[gd_scene load_steps=12 format=4 uid="uid://bs1i616j1mmav"]
+[gd_scene load_steps=18 format=4 uid="uid://bs1i616j1mmav"]
 
 [ext_resource type="PackedScene" uid="uid://dnb207x0r6ato" path="res://firefly.tscn" id="1_io6wl"]
 [ext_resource type="Script" path="res://Swarm.gd" id="1_lhv8e"]
 [ext_resource type="Texture2D" uid="uid://btduh77xobnk3" path="res://icon.svg" id="2_6hyar"]
 [ext_resource type="PackedScene" uid="uid://biyud1g7sb08r" path="res://components/InputComponent.tscn" id="4_sywke"]
-[ext_resource type="Texture2D" uid="uid://uuo8oqi6i270" path="res://assets/sheet.png" id="5_j1b31"]
+[ext_resource type="Script" path="res://FlyCollector.gd" id="5_a1pm1"]
+[ext_resource type="TileSet" uid="uid://bcl4mu05iw3lm" path="res://assets/tileset.tres" id="5_lawpy"]
 [ext_resource type="Script" path="res://SwarmingTarget.gd" id="6_by5c0"]
+[ext_resource type="Texture2D" uid="uid://3qwwp6avlgc7" path="res://assets/halo_256.png" id="6_epjh5"]
+[ext_resource type="Script" path="res://HaloSpotter.gd" id="6_ppsek"]
+[ext_resource type="Script" path="res://BlockingTiles.gd" id="6_r0bx5"]
+[ext_resource type="Texture2D" uid="uid://7jqw1t4rq0tx" path="res://assets/path3.png" id="7_m0dfc"]
+[ext_resource type="Script" path="res://TargetIndicatorLight.gd" id="8_m557f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j3nqc"]
 radius = 16.0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_udivb"]
-texture = ExtResource("5_j1b31")
-texture_region_size = Vector2i(32, 32)
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-5:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-10:2/0 = 0
-11:2/0 = 0
-12:2/0 = 0
-13:2/0 = 0
-2:3/0 = 0
-3:3/0 = 0
-4:3/0 = 0
-5:3/0 = 0
-6:3/0 = 0
-7:3/0 = 0
-2:4/0 = 0
-3:4/0 = 0
-4:4/0 = 0
-5:4/0 = 0
-6:4/0 = 0
-7:4/0 = 0
-2:5/0 = 0
-3:5/0 = 0
-4:5/0 = 0
-5:5/0 = 0
-6:5/0 = 0
-7:5/0 = 0
-2:6/0 = 0
-3:6/0 = 0
-4:6/0 = 0
-5:6/0 = 0
-6:6/0 = 0
-7:6/0 = 0
-2:7/0 = 0
-3:7/0 = 0
-4:7/0 = 0
-5:7/0 = 0
-6:7/0 = 0
-7:7/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-3:1/0 = 0
-1:2/0 = 0
-1:3/0 = 0
-8:2/0 = 0
-8:3/0 = 0
-8:4/0 = 0
-9:2/0 = 0
-9:3/0 = 0
-9:4/0 = 0
-9:5/0 = 0
-9:6/0 = 0
-9:7/0 = 0
-9:8/0 = 0
-9:9/0 = 0
-10:3/0 = 0
-10:4/0 = 0
-10:1/0 = 0
-11:1/0 = 0
-12:1/0 = 0
-13:1/0 = 0
-14:1/0 = 0
-15:1/0 = 0
+[sub_resource type="CircleShape2D" id="CircleShape2D_vlj0h"]
+radius = 96.0
 
-[sub_resource type="TileSet" id="TileSet_xv4go"]
-tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_udivb")
+[sub_resource type="CircleShape2D" id="CircleShape2D_6r75k"]
+radius = 192.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3l121"]
 radius = 18.0
@@ -91,7 +31,7 @@ radius = 18.0
 [node name="Root" type="Node2D"]
 
 [node name="Swarm" type="RigidBody2D" parent="." node_paths=PackedStringArray("swarming_targets")]
-position = Vector2(592, -343)
+position = Vector2(171, -112)
 gravity_scale = 0.0
 script = ExtResource("1_lhv8e")
 swarming_targets = NodePath("../SwarmingTargets")
@@ -103,30 +43,45 @@ texture = ExtResource("2_6hyar")
 [node name="Firefly" parent="Swarm" instance=ExtResource("1_io6wl")]
 position = Vector2(-12, -18)
 
-[node name="Firefly2" parent="Swarm" instance=ExtResource("1_io6wl")]
-position = Vector2(-12, -18)
-
-[node name="Firefly3" parent="Swarm" instance=ExtResource("1_io6wl")]
-position = Vector2(-12, -18)
-
-[node name="Firefly4" parent="Swarm" instance=ExtResource("1_io6wl")]
-position = Vector2(-12, -18)
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Swarm"]
 shape = SubResource("CircleShape2D_j3nqc")
 
 [node name="InputComponent" parent="Swarm" instance=ExtResource("4_sywke")]
 
 [node name="Camera2D" type="Camera2D" parent="Swarm"]
+zoom = Vector2(1.5, 1.5)
 process_callback = 0
 limit_left = 0
 limit_bottom = 0
 limit_smoothed = true
 position_smoothing_enabled = true
 
+[node name="FlyCollector" type="Area2D" parent="Swarm"]
+script = ExtResource("5_a1pm1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Swarm/FlyCollector"]
+shape = SubResource("CircleShape2D_vlj0h")
+
+[node name="HaloSpotter" type="Area2D" parent="Swarm"]
+script = ExtResource("6_ppsek")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Swarm/HaloSpotter"]
+shape = SubResource("CircleShape2D_6r75k")
+
+[node name="Halo" type="Sprite2D" parent="Swarm/HaloSpotter"]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 4
+scale = Vector2(0.76, 0.76)
+texture = ExtResource("6_epjh5")
+
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAP//AAACAAIAAAAAAP7/AAACAAEAAAABAP7/AAACAAEAAAACAP7/AAACAAEAAAADAP7/AAACAAEAAAAEAP7/AAACAAEAAAAFAP7/AAACAAEAAAAGAP7/AAACAAEAAAAHAP7/AAACAAEAAAAIAP7/AAACAAEAAAAJAP7/AAACAAEAAAAKAP7/AAACAAEAAAALAP7/AAACAAEAAAAMAP7/AAACAAEAAAANAP7/AAACAAEAAAAOAP7/AAACAAEAAAAPAP7/AAACAAEAAAAQAP7/AAACAAEAAAARAP7/AAACAAEAAAASAP7/AAACAAEAAAATAP7/AAACAAEAAAAUAP7/AAACAAEAAAAVAP7/AAACAAEAAAAWAP7/AAACAAEAAAAXAP7/AAACAAEAAAAYAP7/AAACAAEAAAAZAP7/AAACAAEAAAAaAP7/AAACAAEAAAAbAP7/AAACAAEAAAAcAP7/AAACAAEAAAAdAP7/AAACAAEAAAAeAP7/AAACAAEAAAAfAP7/AAACAAEAAAAgAP7/AAACAAEAAAAhAP7/AAACAAEAAAAiAP7/AAACAAEAAAAjAP7/AAACAAEAAAAkAP7/AAACAAEAAAAlAP7/AAACAAEAAAAmAP7/AAACAAEAAAAnAP7/AAACAAEAAAAoAP7/AAACAAEAAAApAP7/AAACAAEAAAABAP//AAACAAIAAAACAP//AAACAAIAAAADAP//AAACAAIAAAAEAP//AAACAAIAAAAFAP//AAACAAIAAAAGAP//AAACAAIAAAAHAP//AAACAAIAAAAIAP//AAACAAIAAAAJAP//AAACAAIAAAAKAP//AAACAAIAAAALAP//AAACAAIAAAAMAP//AAACAAIAAAANAP//AAACAAIAAAAOAP//AAACAAIAAAAPAP//AAACAAIAAAAQAP//AAACAAIAAAARAP//AAACAAIAAAASAP//AAACAAIAAAATAP//AAACAAIAAAAUAP//AAACAAIAAAAVAP//AAACAAIAAAAWAP//AAACAAIAAAAXAP//AAACAAIAAAAYAP//AAACAAIAAAAZAP//AAACAAIAAAAaAP//AAACAAIAAAAbAP//AAACAAIAAAAcAP//AAACAAIAAAAdAP//AAACAAIAAAAeAP//AAACAAIAAAAfAP//AAACAAIAAAAgAP//AAACAAIAAAAhAP//AAACAAIAAAAiAP//AAACAAIAAAAjAP//AAACAAIAAAAkAP//AAACAAIAAAAlAP//AAACAAIAAAAmAP//AAACAAIAAAAnAP//AAACAAIAAAAoAP//AAACAAIAAAApAP//AAACAAIAAAAbAPP/AAABAAEAAAAcAPP/AAADAAEAAAAcAPT/AAADAAMAAAAbAPT/AAABAAMAAAAdAPb/AAAJAAIAAAAdAPf/AAAJAAMAAAAdAPj/AAAJAAQAAAAdAPn/AAAJAAUAAAAdAPr/AAAJAAYAAAAdAPv/AAAJAAcAAAAdAPz/AAAJAAgAAAAdAP3/AAAJAAkAAAAeAPb/AAAKAAIAAAAeAPf/AAAKAAMAAAAeAPj/AAAKAAQAAAA=")
-tile_set = SubResource("TileSet_xv4go")
+tile_map_data = PackedByteArray("AAAAAP//AAACAAIAAAAAAP7/AAACAAEAAAABAP7/AAACAAEAAAACAP7/AAACAAEAAAADAP7/AAACAAEAAAAEAP7/AAACAAEAAAAFAP7/AAACAAEAAAAGAP7/AAACAAEAAAAHAP7/AAACAAEAAAAIAP7/AAACAAEAAAAJAP7/AAACAAEAAAAKAP7/AAACAAEAAAALAP7/AAACAAEAAAAMAP7/AAACAAEAAAANAP7/AAACAAEAAAAOAP7/AAACAAEAAAAPAP7/AAACAAEAAAAQAP7/AAACAAEAAAARAP7/AAACAAEAAAASAP7/AAACAAEAAAATAP7/AAACAAEAAAAUAP7/AAACAAEAAAAVAP7/AAACAAEAAAAWAP7/AAACAAEAAAAXAP7/AAACAAEAAAAYAP7/AAACAAEAAAAZAP7/AAACAAEAAAAaAP7/AAACAAEAAAAbAP7/AAACAAEAAAAcAP7/AAACAAEAAAAdAP7/AAACAAEAAAAeAP7/AAACAAEAAAAfAP7/AAACAAEAAAAgAP7/AAACAAEAAAAhAP7/AAACAAEAAAAiAP7/AAACAAEAAAAjAP7/AAACAAEAAAAkAP7/AAACAAEAAAAlAP7/AAACAAEAAAAmAP7/AAACAAEAAAAnAP7/AAACAAEAAAAoAP7/AAACAAEAAAApAP7/AAACAAEAAAABAP//AAACAAIAAAACAP//AAACAAIAAAADAP//AAACAAIAAAAEAP//AAACAAIAAAAFAP//AAACAAIAAAAGAP//AAACAAIAAAAHAP//AAACAAIAAAAIAP//AAACAAIAAAAJAP//AAACAAIAAAAKAP//AAACAAIAAAALAP//AAACAAIAAAAMAP//AAACAAIAAAANAP//AAACAAIAAAAOAP//AAACAAIAAAAPAP//AAACAAIAAAAQAP//AAACAAIAAAARAP//AAACAAIAAAASAP//AAACAAIAAAATAP//AAACAAIAAAAUAP//AAACAAIAAAAVAP//AAACAAIAAAAWAP//AAACAAIAAAAXAP//AAACAAIAAAAYAP//AAACAAIAAAAZAP//AAACAAIAAAAaAP//AAACAAIAAAAbAP//AAACAAIAAAAcAP//AAACAAIAAAAdAP//AAACAAIAAAAeAP//AAACAAIAAAAfAP//AAACAAIAAAAgAP//AAACAAIAAAAhAP//AAACAAIAAAAiAP//AAACAAIAAAAjAP//AAACAAIAAAAkAP//AAACAAIAAAAlAP//AAACAAIAAAAmAP//AAACAAIAAAAnAP//AAACAAIAAAAoAP//AAACAAIAAAApAP//AAACAAIAAAAbAPP/AAABAAEAAAAcAPP/AAACAAIAAAAcAPT/AAACAAIAAAAbAPT/AAACAAIAAAAdAPb/AAAJAAIAAAAdAPf/AAAJAAMAAAAdAPj/AAAJAAQAAAAdAPn/AAAJAAUAAAAdAPr/AAAJAAYAAAAdAPv/AAAJAAcAAAAdAPz/AAAJAAgAAAAdAP3/AAAJAAkAAAAeAPb/AAAKAAIAAAAeAPf/AAAKAAMAAAAhAPr/AAACAAIAAAAiAPr/AAACAAIAAAAiAPn/AAACAAIAAAAhAPn/AAACAAIAAAAhAPj/AAACAAIAAAAhAPf/AAACAAIAAAAhAPb/AAACAAIAAAAhAPX/AAACAAIAAAAhAPT/AAACAAIAAAAgAPT/AAACAAIAAAAfAPT/AAACAAIAAAAeAPT/AAACAAIAAAAdAPT/AAACAAIAAAAdAPP/AAACAAIAAAAeAPP/AAACAAIAAAAfAPP/AAACAAIAAAAgAPP/AAACAAIAAAAhAPP/AAACAAIAAAAiAPP/AAACAAIAAAAiAPb/AAACAAIAAAAiAPf/AAACAAIAAAAiAPj/AAACAAIAAAAiAPX/AAACAAIAAAAiAPT/AAACAAIAAAAaAPT/AAACAAIAAAAZAPT/AAACAAIAAAAYAPT/AAACAAIAAAAXAPT/AAACAAIAAAAWAPT/AAACAAIAAAAVAPT/AAACAAIAAAAUAPT/AAACAAIAAAATAPT/AAACAAIAAAASAPT/AAACAAIAAAARAPT/AAACAAIAAAAQAPT/AAACAAIAAAAPAPT/AAACAAIAAAAOAPT/AAACAAIAAAANAPT/AAACAAIAAAAMAPT/AAACAAIAAAALAPT/AAACAAIAAAAKAPT/AAACAAIAAAAJAPT/AAACAAIAAAAIAPT/AAACAAIAAAAHAPT/AAACAAIAAAAGAPT/AAACAAIAAAAFAPT/AAACAAIAAAAEAPT/AAACAAIAAAADAPT/AAACAAIAAAACAPT/AAACAAIAAAABAPT/AAACAAIAAAABAPX/AAACAAIAAAABAPb/AAACAAIAAAABAPf/AAACAAIAAAABAPj/AAACAAIAAAABAPn/AAACAAIAAAABAPr/AAACAAIAAAABAPv/AAACAAIAAAABAPz/AAACAAIAAAABAP3/AAACAAIAAAAAAP3/AAACAAIAAAAAAPz/AAACAAIAAAAAAPv/AAACAAIAAAAAAPr/AAACAAIAAAAAAPn/AAACAAIAAAAAAPj/AAACAAIAAAAAAPf/AAACAAIAAAAAAPb/AAACAAIAAAAAAPX/AAACAAIAAAAAAPT/AAACAAIAAAAAAPP/AAACAAIAAAABAPP/AAACAAIAAAACAPP/AAACAAIAAAADAPP/AAACAAIAAAAEAPP/AAACAAIAAAAFAPP/AAACAAIAAAAGAPP/AAACAAIAAAAHAPP/AAACAAIAAAAIAPP/AAACAAIAAAAJAPP/AAACAAIAAAAKAPP/AAACAAIAAAALAPP/AAACAAIAAAAMAPP/AAACAAIAAAANAPP/AAACAAIAAAAOAPP/AAACAAIAAAAPAPP/AAACAAIAAAAQAPP/AAACAAIAAAARAPP/AAACAAIAAAASAPP/AAACAAIAAAATAPP/AAACAAIAAAAUAPP/AAACAAIAAAAVAPP/AAACAAIAAAAWAPP/AAACAAIAAAAXAPP/AAACAAIAAAAYAPP/AAACAAIAAAAZAPP/AAACAAIAAAAaAPP/AAACAAIAAAA=")
+tile_set = ExtResource("5_lawpy")
+
+[node name="Blocker1" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAhAPv/AAACAAYAAAAhAPz/AAACAAYAAAAhAP3/AAACAAYAAAAiAP3/AAACAAYAAAAiAPz/AAACAAYAAAAiAPv/AAACAAYAAAA=")
+tile_set = ExtResource("5_lawpy")
+script = ExtResource("6_r0bx5")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.192865, 0.251178, 0.313545, 1)
@@ -136,15 +91,45 @@ color = Color(0.192865, 0.251178, 0.313545, 1)
 [node name="SwarmingTarget" type="Area2D" parent="SwarmingTargets"]
 position = Vector2(975, -272)
 script = ExtResource("6_by5c0")
+fly_target_max_count = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwarmingTargets/SwarmingTarget"]
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_3l121")
 
+[node name="PointLight2D" type="PointLight2D" parent="SwarmingTargets/SwarmingTarget"]
+energy = 5.0
+texture = ExtResource("7_m0dfc")
+script = ExtResource("8_m557f")
+
 [node name="SwarmingTarget2" type="Area2D" parent="SwarmingTargets"]
-position = Vector2(975, -240)
+position = Vector2(1211, -273)
 script = ExtResource("6_by5c0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwarmingTargets/SwarmingTarget2"]
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_cjs11")
+
+[node name="PointLight2D" type="PointLight2D" parent="SwarmingTargets/SwarmingTarget2"]
+energy = 7.0
+texture = ExtResource("7_m0dfc")
+script = ExtResource("8_m557f")
+
+[node name="FreeFlies1" type="Node2D" parent="."]
+position = Vector2(628, -244)
+
+[node name="Firefly" parent="FreeFlies1" instance=ExtResource("1_io6wl")]
+free_fly = true
+
+[node name="FreeFlies2" type="Node2D" parent="."]
+position = Vector2(1283, -142)
+
+[node name="Firefly" parent="FreeFlies2" instance=ExtResource("1_io6wl")]
+free_fly = true
+
+[connection signal="area_entered" from="Swarm/FlyCollector" to="Swarm/FlyCollector" method="_on_area_entered"]
+[connection signal="fly_aqcuired" from="Swarm/FlyCollector" to="Swarm/HaloSpotter" method="_fly_aqcuired"]
+[connection signal="area_entered" from="Swarm/HaloSpotter" to="Swarm/HaloSpotter" method="_on_area_entered"]
+[connection signal="area_exited" from="Swarm/HaloSpotter" to="Swarm/HaloSpotter" method="_on_area_exited"]
+[connection signal="swarming_target_activated" from="SwarmingTargets/SwarmingTarget" to="Blocker1" method="_on_swarming_target_swarming_target_activated"]
+[connection signal="swarming_target_deactivated" from="SwarmingTargets/SwarmingTarget" to="Blocker1" method="_on_swarming_target_swarming_target_deactivated"]

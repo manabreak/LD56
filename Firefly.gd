@@ -1,5 +1,7 @@
-class_name Firefly extends Node2D
+class_name Firefly extends Area2D
 
+@export
+var free_fly = false
 var fly_center: Vector2 = Vector2()
 var fly_direction: Vector2 = Vector2(0, 0)
 var fly_angle = 0
@@ -11,12 +13,19 @@ var sc_multip = 2.0
 var migrating = false
 var migration_source_point = Vector2()
 
+@onready
+var default_color = modulate
+
 func set_parent(p: Node2D) -> void:
 	# fly_center = p.position
 	reparent(p, true)
 	print("Fly at " + str(position) + ", target at " + str(fly_center))
 	migrating = true
 	migration_source_point = position
+	if free_fly:
+		print("Changin free fly color")
+		var tween = create_tween()
+		tween.tween_property(self, "modulate", Color("37b800"), 0.5)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,6 +37,9 @@ func _ready() -> void:
 	fly_speed = randf_range(5.0, 8.0)
 	sc_multip = randf_range(1.0, 2.0)
 	fly_timer = randf()
+	
+	if free_fly:
+		$Sprite2D.modulate = Color(0.8, 1.0, 0.9)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -44,3 +56,7 @@ func _process(delta: float) -> void:
 		var c = cos(fly_timer)
 	
 		position = fly_center + fly_direction * fly_speed * Vector2(s * sc_multip, c * sc_multip)
+
+
+func _on_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.

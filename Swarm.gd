@@ -23,7 +23,8 @@ func _process(delta: float) -> void:
 
 func _target_clicked(target: SwarmingTarget):
 	print("Clicked target")
-	if len(flies) > 0:
+	if len(flies) > 1:
+		print("Flying a fly from swarm to target")
 		fly_to_target(target)
 
 
