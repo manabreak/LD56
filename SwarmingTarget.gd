@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 	
 func add_fly(fly: Firefly) -> void:
 	if flies.has(fly):
-		print("Fly already in target!")
+		print("Fly already in target! This should NOT happen!")
 		return
 	
 	var prev_count = len(flies)
@@ -41,8 +41,10 @@ func add_fly(fly: Firefly) -> void:
 
 
 func remove_fly() -> void:
+	print("Removing fly from target")
 	var prev_count = len(flies)
 	if prev_count == 0:
+		print("Fly count was zero, cannot remove a fly")
 		return
 	
 	var fly = flies.pop_back()

@@ -15,9 +15,9 @@ func _process(delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area is Firefly:
 		if area.free_fly:
+			area.free_fly = false
 			print("Found a free fly!")
 			var swarm = get_parent() as Swarm
 			swarm.flies.append(area)
-			area.set_parent(swarm)
-			area.free_fly = false
+			area.set_parent(swarm, true)
 			emit_signal("fly_aqcuired")

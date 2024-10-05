@@ -16,14 +16,12 @@ var migration_source_point = Vector2()
 @onready
 var default_color = modulate
 
-func set_parent(p: Node2D) -> void:
+func set_parent(p: Node2D, was_free: bool = false) -> void:
 	# fly_center = p.position
 	reparent(p, true)
-	print("Fly at " + str(position) + ", target at " + str(fly_center))
 	migrating = true
 	migration_source_point = position
-	if free_fly:
-		print("Changin free fly color")
+	if was_free:
 		var tween = create_tween()
 		tween.tween_property(self, "modulate", Color("37b800"), 0.5)
 

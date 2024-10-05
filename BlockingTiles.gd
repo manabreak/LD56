@@ -1,9 +1,18 @@
 extends TileMapLayer
 
+@export
+var targets: Array[SwarmingTarget] = []
+
+@onready
+var threshold = len(targets)
+
+var activated_count = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	for t in targets:
+		t.connect("swarming_target_activated", self._on_swarming_target_activated)
+		t.connect("swarming_target_deactivated", self._on_swarming_target_deactivated)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -11,10 +20,11 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_swarming_target_swarming_target_activated() -> void:
-	await get_tree().create_timer(1.0).timeout
-	queue_free()
+func _on_swarming_target_activated() -> void:
+	activated_count += 1
+	if activated_count >= threshold:
+		queue_free()
 
 
-func _on_swarming_target_swarming_target_deactivated() -> void:
-	pass # Replace with function body.
+func _on_swarming_target_deactivated() -> void:
+	activated_count -= 1
