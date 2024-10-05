@@ -39,6 +39,14 @@ func add_fly(fly: Firefly) -> void:
 	elif prev_count >= fly_target_min_count and prev_count <= fly_target_max_count:
 		emit_signal("swarming_target_deactivated")
 
+func remove_flies() -> void:
+	await get_tree().create_timer(1.5).timeout
+	var fly_count = len(flies)
+	for i in range(0, fly_count):
+		var timer = get_tree().create_timer(i * 0.1)
+		await timer.timeout
+		remove_fly()
+
 
 func remove_fly() -> void:
 	print("Removing fly from target")

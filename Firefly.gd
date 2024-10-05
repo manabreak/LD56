@@ -7,7 +7,7 @@ var fly_direction: Vector2 = Vector2(0, 0)
 var fly_angle = 0
 var fly_timer = 0.0
 var rot_direction = 1.0
-var rot_speed = 1.0
+var rot_speed = 0.8
 var fly_speed = 16.0
 var sc_multip = 2.0
 var migrating = false
@@ -31,7 +31,7 @@ func _ready() -> void:
 	fly_angle = randf_range(0, PI * 2)
 	fly_direction = Vector2.from_angle(fly_angle)
 	rot_direction = signf(randf_range(-1, 1))
-	rot_speed = randf_range(1.0, 5.0)
+	rot_speed = randf_range(0.5, 5.0)
 	fly_speed = randf_range(5.0, 8.0)
 	sc_multip = randf_range(1.0, 2.0)
 	fly_timer = randf()

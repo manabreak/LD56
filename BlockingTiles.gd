@@ -24,6 +24,8 @@ func _on_swarming_target_activated() -> void:
 	activated_count += 1
 	if activated_count >= threshold:
 		queue_free()
+		for t in targets:
+			t.remove_flies()
 
 
 func _on_swarming_target_deactivated() -> void:
