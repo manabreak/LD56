@@ -28,9 +28,14 @@ func fly_to_target(target: SwarmingTarget) -> void:
 	print("Flying a fly from swarm to target")
 	var fly = flies.pop_back() as Firefly
 	target.add_fly(fly)
+	$SendSound.pitch_scale = randf_range(0.9, 1.1)
+	$SendSound.play()
 
 
 func _fly_popped(fly: Firefly) -> void:
 	print("Fly popped, adding back to swarm")
 	fly.set_parent(self)
 	flies.append(fly)
+	$RetrieveSound.pitch_scale = randf_range(0.9, 1.1)
+	$RetrieveSound.play()
+	print("Flies now in swarm: %d" % len(flies))

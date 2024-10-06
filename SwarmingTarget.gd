@@ -43,7 +43,7 @@ func remove_flies() -> void:
 	await get_tree().create_timer(1.5).timeout
 	var fly_count = len(flies)
 	for i in range(0, fly_count):
-		var timer = get_tree().create_timer(i * 0.1)
+		var timer = get_tree().create_timer(i * 0.3)
 		await timer.timeout
 		remove_fly()
 

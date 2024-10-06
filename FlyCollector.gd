@@ -21,3 +21,5 @@ func _on_area_entered(area: Area2D) -> void:
 			swarm.flies.append(area)
 			area.set_parent(swarm, true)
 			emit_signal("fly_aqcuired")
+			$AudioStreamPlayer.play()
+			print("Collected a fly, flies now in swarm: %d" % len(swarm.flies))
